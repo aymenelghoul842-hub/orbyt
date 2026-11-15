@@ -1,0 +1,9 @@
+ORBYT - START HERE
+=======================
+1. Double-click  UPLOAD-TO-GITHUB.bat   (uploads the whole project to your GitHub repo)
+2. GitHub -> Actions tab -> "Build Flutter web" -> Run workflow -> wait for the green tick (~5 min)
+3. render.com -> New + -> Blueprint -> pick "orbyt" -> Apply
+4. Open your .onrender.com link
+
+Full details: FREE_HOSTING.md     Safety / legal to-do list: README.md
+Before sharing widely: edit the [PLACEHOLDERS] in server\public\terms.html, privacy.html, safety.html

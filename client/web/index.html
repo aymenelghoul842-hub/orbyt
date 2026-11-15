@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Orbyt - meet someone new, instantly. Free anonymous video and text chat with people around the world. No sign-up, no profile. 18+ only.">
+  <meta name="theme-color" content="#05060A">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="{{ORIGIN}}/">
+  <meta property="og:site_name" content="Orbyt">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ORIGIN}}/">
+  <meta property="og:title" content="Orbyt - Meet someone new. Instantly.">
+  <meta property="og:description" content="Free anonymous video and text chat with people around the world. No sign-up, no profile. 18+ only.">
+  <meta property="og:image" content="{{ORIGIN}}/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Orbyt - Meet someone new. Instantly.">
+  <meta name="twitter:description" content="Free anonymous video and text chat. No sign-up. 18+ only.">
+  <meta name="twitter:image" content="{{ORIGIN}}/og.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Orbyt - Meet someone new</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html,body{background:#05060A;margin:0;height:100%}
+    #splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+      background:radial-gradient(700px 400px at 15% 0%,rgba(139,108,255,.35),transparent 60%),#05060A;
+      color:#F2F3F8;font:600 22px/1 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:-.5px;
+      transition:opacity .4s ease;z-index:10}
+    #splash .orbit{width:76px;height:76px;border-radius:50%;border:7px solid transparent;
+      border-top-color:#C6FF4D;border-right-color:#3DF5C8;animation:spin 1.1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    noscript{color:#F2F3F8;font:16px system-ui;display:block;padding:40px;text-align:center}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Orbyt","applicationCategory":"SocialNetworkingApplication","operatingSystem":"Any","description":"Free video and text chat with people around the world. No sign-up. 18+ only.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+  <div id="splash"><div class="orbit"></div>Orbyt</div>
+  <noscript>
+    <h1>Orbyt - Meet someone new, instantly</h1>
+    <p>Orbyt is a free video and text chat for adults (18+). Talk to people from around the world: no sign-up, no profile. Pick your language and interests, press Start, and meet someone new in seconds.</p>
+    <p>Make friends, practice a language or just have a chat. Orbyt needs JavaScript to run, please enable it.</p>
+  </noscript>
+  <script>
+    // Deterrents only: no website can truly block screenshots/recording (that happens in the OS).
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    document.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    window.addEventListener('flutter-first-frame', function () {
+      var s = document.getElementById('splash');
+      if (s) { s.style.opacity = 0; setTimeout(function () { s.remove(); }, 450); }
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: orbyt
+    runtime: docker
+    dockerfilePath: ./Dockerfile.prebuilt
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_IP_HEADER
+        value: cf-connecting-ip
+      - key: IP_SALT
+        generateValue: true
+      # "Buy me a coffee": fill these in the Render dashboard (Environment tab). Leave empty to hide that method.
+      - key: KONNECT_API_KEY
+        sync: false
+      - key: KONNECT_SANDBOX
+        value: "true"
+      # Secret for your private visitor dashboard: open  https://YOUR-SITE/stats?key=<this value>  (value is shown in Render > Environment)
+      - key: STATS_KEY
+        generateValue: true
+      - key: DONATE_NAME
+        sync: false
+      - key: DONATE_CCP
+        sync: false
+      - key: DONATE_RIB
+        value: "10016131101497378895"
+      - key: DONATE_PHONE
+        sync: false

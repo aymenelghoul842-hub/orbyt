@@ -1,0 +1,26 @@
+BUY ME A COFFEE - 2 MINUTE SETUP
+================================
+The coffee button is already in the app (home page). It asks the visitor:
+  1) how much they want to send
+  2) the payment method
+
+Card details are NEVER typed on your site. They are typed on the payment
+provider's secure page. Never put your card number in any file.
+
+YOUR STB RIB 10016131101497378895 IS ALREADY ADDED.
+Optional: set DONATE_NAME to your name so it shows next to the RIB.
+
+OPTION A - Send to your La Poste account (works right now, free)
+  Set these 2 settings (Render dashboard > Environment, or your .env file):
+    DONATE_NAME = your full name as on the account
+    DONATE_CCP  = your CCP / RIB number (the ACCOUNT number, NOT the card number)
+  The visitor sees them with a copy button and sends from their bank/La Poste/D17.
+
+OPTION B - Card payment (Konnect, money goes to your Tunisian account)
+  1) Create an account at https://konnect.network and add your La Poste / bank account
+  2) Copy your API key and set:
+       KONNECT_API_KEY = walletId:secret
+       KONNECT_SANDBOX = false      (after you tested)
+  The "Pay by card" option then appears by itself.
+
+You can use A, B, or both.

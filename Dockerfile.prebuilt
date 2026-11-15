@@ -1,0 +1,14 @@
+# For free hosts (Render etc.): no Flutter in the image, uses the web build you committed in ./web-dist
+FROM node:20-alpine
+ENV NODE_ENV=production
+WORKDIR /app
+COPY server/package.json server/package-lock.json* server/
+RUN cd server && (npm ci --omit=dev || npm install --omit=dev)
+COPY server/ server/
+COPY web-dist/ web-dist/
+RUN mkdir -p /tmp/data && chown -R node:node /tmp/data /app
+USER node
+ENV DATA_DIR=/tmp/data
+EXPOSE 10000
+ENV PORT=10000
+CMD ["node", "server/index.js"]

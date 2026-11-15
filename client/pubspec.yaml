@@ -1,0 +1,24 @@
+name: orbyt
+description: Orbyt - meet someone new. Random video and text chat.
+publish_to: 'none'
+version: 3.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_webrtc: ^0.11.7
+  socket_io_client: ^2.0.3+1
+  google_fonts: ^6.2.1
+  http: ^1.2.1
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,74 @@
+# One-command public deployment: app + automatic HTTPS (Caddy) + TURN relay (coturn)
+#   1) cp .env.example .env   and fill it in
+#   2) docker compose up -d --build
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      TRUST_PROXY_HOPS: "1"
+      IP_SALT: ${IP_SALT}
+      ALLOWED_ORIGINS: https://${DOMAIN}
+      TURN_URLS: turn:${DOMAIN}:3478?transport=udp,turn:${DOMAIN}:3478?transport=tcp
+      TURN_SECRET: ${TURN_SECRET}
+      BAN_HOURS: ${BAN_HOURS:-72}
+      KONNECT_API_KEY: ${KONNECT_API_KEY:-}
+      KONNECT_SANDBOX: ${KONNECT_SANDBOX:-true}
+      STATS_KEY: ${STATS_KEY:-}
+      DONATE_NAME: ${DONATE_NAME:-}
+      DONATE_CCP: ${DONATE_CCP:-}
+      DONATE_RIB: ${DONATE_RIB:-10016131101497378895}
+      DONATE_PHONE: ${DONATE_PHONE:-}
+    volumes:
+      - orbyt-data:/data
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+
+  coturn:
+    image: coturn/coturn:latest
+    restart: unless-stopped
+    network_mode: host   # TURN needs real UDP ports; open 3478 + 49160-49200 in your firewall
+    command:
+      - "-n"
+      - "--log-file=stdout"
+      - "--listening-port=3478"
+      - "--realm=${DOMAIN}"
+      - "--use-auth-secret"
+      - "--static-auth-secret=${TURN_SECRET}"
+      - "--external-ip=${PUBLIC_IP}"
+      - "--min-port=49160"
+      - "--max-port=49200"
+      - "--fingerprint"
+      - "--no-cli"
+      - "--no-tls"
+      - "--no-dtls"
+      - "--no-multicast-peers"
+      # never let TURN be used to reach private networks
+      - "--denied-peer-ip=0.0.0.0-0.255.255.255"
+      - "--denied-peer-ip=10.0.0.0-10.255.255.255"
+      - "--denied-peer-ip=127.0.0.0-127.255.255.255"
+      - "--denied-peer-ip=169.254.0.0-169.254.255.255"
+      - "--denied-peer-ip=172.16.0.0-172.31.255.255"
+      - "--denied-peer-ip=192.168.0.0-192.168.255.255"
+
+volumes:
+  orbyt-data:
+  caddy-data:
+  caddy-config:
